@@ -20,11 +20,18 @@ public class CSVReader {
             reader.readLine();
             //wir nehmen ready() weil so überprüft werden kann ob noch DAten im Strom sind, wenn ja, liest er weiter, wenn nicht, geht er aus while raus
             while(reader.ready()){
-                String s = reader.readLine();
-                //TODO
-                //Idee: ich trenne die eingelesene Zeile sinnvoll und speichere die Daten ab in jeweils die Felder vom Eintrag
-                //die Einträge speichere ich dann in ArrayList csvimmport
-                //komm ich noch nicht drauf, muss grübeln
+                String zeile = reader.readLine();
+                String[] woerter;
+                woerter = zeile.split(";"); //der gute alter REGEX Kack
+
+                String name = woerter[0];
+                String strasse = woerter[1];
+                String plz = woerter[2];
+                String ort = woerter[3];
+                String gueterverkehr = woerter[4];
+                String personenverkehr = woerter[5];
+
+                csvimport.add(new Eintrag(name, strasse, plz, ort, gueterverkehr, personenverkehr));
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
