@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import org.controlsfx.tools.Borders;
 
@@ -14,12 +15,10 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
 
         BorderPane wurzel = new BorderPane();
-
-        /*FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+        wurzel.setCenter((new View().getBorderPane()));
+        var scene = new Scene(new StackPane(wurzel), 640, 480);
         stage.setScene(scene);
-        stage.show();*/
+        stage.show();
     }
 
     public static void main(String[] args) {

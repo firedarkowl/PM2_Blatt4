@@ -25,51 +25,22 @@ public class Eintrag {
         this.personenverkehr= new SimpleStringProperty(personenverkehr);
     }
 
-    public String getName() {
-        return name.get();
+    public String getName(){
+        return name.getValue();
     }
-
-    public StringProperty nameProperty() {
-        return name;
+    public String getStrasse(){
+        return strasse.getValue();
     }
-
-    public String getStrasse() {
-        return strasse.get();
+    public String getPlz(){
+        return plz.getValue();
     }
-
-    public StringProperty strasseProperty() {
-        return strasse;
+    public String getOrt(){
+        return ort.getValue();
     }
-
-    public String getPlz() {
-        return plz.get();
+    public String getGueterverkehr(){
+        return gueterverkehr.getValue();
     }
-
-    public StringProperty plzProperty() {
-        return plz;
-    }
-
-    public String getOrt() {
-        return ort.get();
-    }
-
-    public StringProperty ortProperty() {
-        return ort;
-    }
-
-    public String getGueterverkehr() {
-        return gueterverkehr.get();
-    }
-
-    public StringProperty gueterverkehrProperty() {
-        return gueterverkehr;
-    }
-
-    public String getPersonenverkehr() {
-        return personenverkehr.get();
-    }
-
-    public StringProperty personenverkehrProperty() {
-        return personenverkehr;
+    public String getPersonenverkehr(){
+        return personenverkehr.getValue();
     }
 }
