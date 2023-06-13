@@ -26,8 +26,9 @@ public class View {
 
     private ComboBox<String> box = new ComboBox(FXCollections.observableArrayList("Personenverkehr", "Güterverkehr", "Güter- und Personenverkehr", "ungefiltert"));
 
-    private ComboBox<String> searchpattern = new ComboBox<>(FXCollections.observableArrayList("Namen", "mit Groß-/Kleinschreibung", "ohne Groß-/Kleinschreibung", "Orte"));
+    private ComboBox<String> searchpattern = new ComboBox<>(FXCollections.observableArrayList("Namen", "Orte"));
 
+    private ComboBox<String> schreibweise = new ComboBox<>(FXCollections.observableArrayList( "mit Groß-/Kleinschreibung", "ohne Groß-/Kleinschreibung"));
     private FilteredList filtered;
 
     private SortedList sorted;
@@ -94,8 +95,13 @@ public class View {
         BorderPane layout = new BorderPane();
         box.setValue("Ungefiltert");
         box.setBackground(new Background(new BackgroundFill(Color.DEEPPINK , null, null)));
-        searchpattern.setValue("ohne Groß-Kleinschreibung");
+
+        searchpattern.setValue("Name"); //ohne Groß-/Kleinschreibung
         searchpattern.setBackground(new Background(new BackgroundFill(Color.DEEPPINK , null, null)));
+        layout.setTop(getHBox());
+
+        schreibweise.setValue("ohne Groß-/Kleinschreibung");
+        schreibweise.setBackground(new Background(new BackgroundFill(Color.DEEPPINK , null, null)));
         layout.setTop(getHBox());
 
         Controller controller = new Controller();
@@ -120,8 +126,9 @@ public class View {
         searchbar.setPrefSize(200, 20);
         this.box.setPrefSize(200, 20);
         searchpattern.setPrefSize(200, 20);
+        schreibweise.setPrefSize(200, 20);
         //Alles hinzufügen
-        box.getChildren().addAll(this.box, searchbar, searchpattern);
+        box.getChildren().addAll(this.box, searchbar, searchpattern, schreibweise);
 
         return box;
     }

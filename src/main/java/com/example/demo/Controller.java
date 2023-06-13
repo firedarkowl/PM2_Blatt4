@@ -25,7 +25,8 @@ public class Controller {
             if (searchpattern.getValue().equals("mit Groß-/Kleinschreibung")) {
                 //Filter für die gefilterte Liste setzen
                 gefiltert.setPredicate(eintrag -> {
-                    //
+                    //wenn der neu übergebene Suchwert leer ist oder null, sollen die bisherigen Elemente in der gefilterten Liste behalten werden
+                    //newVal ist der Suchkriteriumwert
                     if (newVal == null || newVal.isEmpty()) {
                         return true;
                     }
@@ -42,6 +43,7 @@ public class Controller {
                         return false;
                     }
                 });
+                //funktioniert analog
             } else if (searchpattern.getValue().equals("ohne Groß-/Kleinschreibung")) {
                 gefiltert.setPredicate(eintrag -> {
                     if (newVal == null || newVal.isEmpty()) {
@@ -92,7 +94,9 @@ public class Controller {
         return listenerSuchstrategie;
     }
 
+    //ComboBox aktualisieren basierend auf der ausgewählten Option
     public ChangeListener updateBox(TableView tabelleUebergeben, ComboBox box, FilteredList gefiltert, SortedList sortiert) {
+
         TableView<Eintrag> tabelle = tabelleUebergeben;
         FilteredList<Eintrag> filtered = gefiltert;
 
