@@ -105,7 +105,7 @@ public class View {
         layout.setTop(getHBox());
 
         Controller controller = new Controller();
-        searchbar.textProperty().addListener(controller.updateSearch(searchbar, table, searchpattern, filtered, sorted));
+        searchbar.textProperty().addListener(controller.updateSearch(searchbar, table, searchpattern, schreibweise, filtered, sorted));
         searchbar.setBackground(new Background(new BackgroundFill(Color.LIGHTPINK , null, null)));
         box.valueProperty().addListener(controller.updateBox(table, box, filtered, sorted));
 

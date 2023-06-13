@@ -10,87 +10,45 @@ import javafx.scene.control.TextField;
 public class Controller {
 
     //Aktualisieren der Suche basierend auf dem ausgewähltem Suchmuster
-    public ChangeListener updateSearch(TextField search, TableView tabelleUebergeben, ComboBox searchpattern, FilteredList filtered, SortedList sorted) {
+    public ChangeListener updateSearch(TextField search, TableView tabelleUebergeben, ComboBox searchpattern, ComboBox schreibweise, FilteredList filtered, SortedList sorted) {
 
-        //ne Tabelle anlegen, damit wir an den ursprünglichen Daten nicht manipulieren
         TableView<Eintrag> tabelle = tabelleUebergeben;
-        //hier wird später der passende Filter zugewiesen
         FilteredList<Eintrag> gefiltert = filtered;
 
-        //hier reagiren wir auf die Veränderungen
-        //mit Lambda imlementieren wir hier die changed Methode in dem ChangeListener Interface
+        //mit Lambda die changed Methode in ChangeListener überschreiben
         ChangeListener listenerSuchstrategie = (ChangeListener<String>) ((observable, oldVal, newVal) -> {
 
-            //Suchmuster überprüfen und die entsprechenden Filter anwenden
-            if (searchpattern.getValue().equals("mit Groß-/Kleinschreibung")) {
-                //Filter für die gefilterte Liste setzen
-                gefiltert.setPredicate(eintrag -> {
-                    //wenn der neu übergebene Suchwert leer ist oder null, sollen die bisherigen Elemente in der gefilterten Liste behalten werden
-                    //newVal ist der Suchkriteriumwert
-                    if (newVal == null || newVal.isEmpty()) {
-                        return true;
-                    }
-                    String sucher = newVal;
-                    if (eintrag.getName().contains(sucher)) {
-                        return true;
-                    } else if (eintrag.getStrasse().contains(sucher)) {
-                        return true;
-                    } else if (eintrag.getPlz().contains(sucher)) {
-                        return true;
-                    } else if (eintrag.getOrt().contains(sucher)) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                });
-                //funktioniert analog
-            } else if (searchpattern.getValue().equals("ohne Groß-/Kleinschreibung")) {
-                gefiltert.setPredicate(eintrag -> {
-                    if (newVal == null || newVal.isEmpty()) {
-                        return true;
-                    }
-                    String sucher = newVal.toLowerCase();
-                    if (eintrag.getName().toLowerCase().contains(sucher)) {
-                        return true;
-                    } else if (eintrag.getStrasse().toLowerCase().contains(sucher)) {
-                        return true;
-                    } else if (eintrag.getPlz().toLowerCase().contains(sucher)) {
-                        return true;
-                    } else if (eintrag.getOrt().toLowerCase().contains(sucher)) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                });
-            } else if (searchpattern.getValue().equals("Namen")) {
-                gefiltert.setPredicate(eintrag -> {
-                    if (newVal == null || newVal.isEmpty()) {
-                        return true;
-                    }
-                    String sucher = newVal.toLowerCase();
-                    if (eintrag.getName().toLowerCase().contains(sucher)) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+            gefiltert.setPredicate(eintrag -> {
+                if (newVal == null || newVal.isEmpty()) {
+                    return true;
+                }
+                String sucher = newVal;
+                String name = eintrag.getName();
+                String ort = eintrag.getOrt();
 
-                });
-            } else if (searchpattern.getValue().equals("Orte")) {
-                gefiltert.setPredicate(eintrag -> {
-                    if (newVal == null || newVal.isEmpty()) {
-                        return true;
-                    }
-                    String sucher = newVal.toLowerCase();
-                    if (eintrag.getOrt().toLowerCase().contains(sucher)) {
-                        return true;
+                if (schreibweise.getValue().equals("mit Groß-/Kleinschreibung")) {
+                    if (searchpattern.getValue().equals("Namen")) {
+                        return name.contains(sucher);
+                    } else if (searchpattern.getValue().equals("Orte")) {
+                        return ort.contains(sucher);
                     } else {
-                        return false;
+                        return name.contains(sucher) || ort.contains(sucher);
                     }
-                });
+                } else if (schreibweise.getValue().equals("ohne Groß-/Kleinschreibung")) {
+                    if (searchpattern.getValue().equals("Namen")) {
+                        return name.toLowerCase().contains(sucher);
+                    } else if (searchpattern.getValue().equals("Orte")) {
+                        return ort.toLowerCase().contains(sucher);
+                    } else {
+                        return name.toLowerCase().contains(sucher) || ort.toLowerCase().contains(sucher);
+                    }
+                }
 
-            }
+                return false;
+            });
 
         });
+
         return listenerSuchstrategie;
     }
 
