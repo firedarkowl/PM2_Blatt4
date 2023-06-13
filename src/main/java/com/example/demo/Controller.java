@@ -8,14 +8,23 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 public class Controller {
+
+    //Aktualisieren der Suche basierend auf dem ausgewähltem Suchmuster
     public ChangeListener updateSearch(TextField search, TableView tabelleUebergeben, ComboBox searchpattern, FilteredList filtered, SortedList sorted) {
+
+        //ne Tabelle anlegen, damit wir an den ursprünglichen Daten nicht manipulieren
         TableView<Eintrag> tabelle = tabelleUebergeben;
+        //hier wird später der passende Filter zugewiesen
         FilteredList<Eintrag> gefiltert = filtered;
 
+        //hier reagiren wir auf die Veränderungen
+        //mit Lambda imlementieren wir hier die changed Methode in dem ChangeListener Interface
         ChangeListener listenerSuchstrategie = (ChangeListener<String>) ((observable, oldVal, newVal) -> {
-            if (searchpattern.getValue().equals("mit Groß-Kleinschreibung")) {
-                gefiltert.setPredicate(bahnunternehmen -> {
 
+            //Suchmuster überprüfen und die entsprechenden Filter anwenden
+            if (searchpattern.getValue().equals("mit Groß-/Kleinschreibung")) {
+                //Filter für die gefilterte Liste setzen
+                gefiltert.setPredicate(bahnunternehmen -> {
                     if (newVal == null || newVal.isEmpty()) {
                         return true;
                     }
@@ -32,7 +41,7 @@ public class Controller {
                         return false;
                     }
                 });
-            } else if (searchpattern.getValue().equals("ohne Groß-Kleinschreibung")) {
+            } else if (searchpattern.getValue().equals("ohne Groß-/Kleinschreibung")) {
                 gefiltert.setPredicate(bahnunternehmen -> {
                     if (newVal == null || newVal.isEmpty()) {
                         return true;

@@ -93,11 +93,14 @@ public class View {
     public BorderPane getBorderPane() {
         BorderPane layout = new BorderPane();
         box.setValue("Ungefiltert");
+        box.setBackground(new Background(new BackgroundFill(Color.DEEPPINK , null, null)));
         searchpattern.setValue("ohne Groß-Kleinschreibung");
+        searchpattern.setBackground(new Background(new BackgroundFill(Color.DEEPPINK , null, null)));
         layout.setTop(getHBox());
 
         Controller controller = new Controller();
         searchbar.textProperty().addListener(controller.updateSearch(searchbar, table, searchpattern, filtered, sorted));
+        searchbar.setBackground(new Background(new BackgroundFill(Color.LIGHTPINK , null, null)));
         box.valueProperty().addListener(controller.updateBox(table, box, filtered, sorted));
 
         table.setItems(sorted);
@@ -112,7 +115,7 @@ public class View {
         //Aussehen Kopfzeile
         box.setPadding(new Insets(15, 12, 15, 12));
         box.setSpacing(10);
-        box.setBackground(new Background(new BackgroundFill(Color.CADETBLUE, null, null)));
+        box.setBackground(new Background(new BackgroundFill(Color.HOTPINK , null, null)));
         //Was ist in der Kopfzeile(Suchzeile, PoG, Suchstrategie)
         searchbar.setPrefSize(200, 20);
         this.box.setPrefSize(200, 20);
