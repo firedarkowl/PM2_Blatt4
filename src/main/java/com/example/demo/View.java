@@ -49,8 +49,6 @@ public class View {
         CSVReader reader = new CSVReader();
         ArrayList<Eintrag> list = reader.readcsv("src/csvfile.csv");
 
-        //mithilfe von observableList erzeugen wir eine beobachtbare ArrayList
-        //können so die Änderungen an den enthaltenen Elementen verfolgen
         var data = FXCollections.<Eintrag>observableArrayList();
         data.addAll(list);
         filtered = new FilteredList<>(data, p -> true);
