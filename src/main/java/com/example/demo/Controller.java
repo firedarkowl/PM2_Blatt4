@@ -24,48 +24,49 @@ public class Controller {
             //Suchmuster überprüfen und die entsprechenden Filter anwenden
             if (searchpattern.getValue().equals("mit Groß-/Kleinschreibung")) {
                 //Filter für die gefilterte Liste setzen
-                gefiltert.setPredicate(bahnunternehmen -> {
+                gefiltert.setPredicate(eintrag -> {
+                    //
                     if (newVal == null || newVal.isEmpty()) {
                         return true;
                     }
                     String sucher = newVal;
-                    if (bahnunternehmen.getName().contains(sucher)) {
+                    if (eintrag.getName().contains(sucher)) {
                         return true;
-                    } else if (bahnunternehmen.getStrasse().contains(sucher)) {
+                    } else if (eintrag.getStrasse().contains(sucher)) {
                         return true;
-                    } else if (bahnunternehmen.getPlz().contains(sucher)) {
+                    } else if (eintrag.getPlz().contains(sucher)) {
                         return true;
-                    } else if (bahnunternehmen.getOrt().contains(sucher)) {
+                    } else if (eintrag.getOrt().contains(sucher)) {
                         return true;
                     } else {
                         return false;
                     }
                 });
             } else if (searchpattern.getValue().equals("ohne Groß-/Kleinschreibung")) {
-                gefiltert.setPredicate(bahnunternehmen -> {
+                gefiltert.setPredicate(eintrag -> {
                     if (newVal == null || newVal.isEmpty()) {
                         return true;
                     }
                     String sucher = newVal.toLowerCase();
-                    if (bahnunternehmen.getName().toLowerCase().contains(sucher)) {
+                    if (eintrag.getName().toLowerCase().contains(sucher)) {
                         return true;
-                    } else if (bahnunternehmen.getStrasse().toLowerCase().contains(sucher)) {
+                    } else if (eintrag.getStrasse().toLowerCase().contains(sucher)) {
                         return true;
-                    } else if (bahnunternehmen.getPlz().toLowerCase().contains(sucher)) {
+                    } else if (eintrag.getPlz().toLowerCase().contains(sucher)) {
                         return true;
-                    } else if (bahnunternehmen.getOrt().toLowerCase().contains(sucher)) {
+                    } else if (eintrag.getOrt().toLowerCase().contains(sucher)) {
                         return true;
                     } else {
                         return false;
                     }
                 });
             } else if (searchpattern.getValue().equals("Namen")) {
-                gefiltert.setPredicate(bahnunternehmen -> {
+                gefiltert.setPredicate(eintrag -> {
                     if (newVal == null || newVal.isEmpty()) {
                         return true;
                     }
                     String sucher = newVal.toLowerCase();
-                    if (bahnunternehmen.getName().toLowerCase().contains(sucher)) {
+                    if (eintrag.getName().toLowerCase().contains(sucher)) {
                         return true;
                     } else {
                         return false;
@@ -73,12 +74,12 @@ public class Controller {
 
                 });
             } else if (searchpattern.getValue().equals("Orte")) {
-                gefiltert.setPredicate(bahnunternehmen -> {
+                gefiltert.setPredicate(eintrag -> {
                     if (newVal == null || newVal.isEmpty()) {
                         return true;
                     }
                     String sucher = newVal.toLowerCase();
-                    if (bahnunternehmen.getOrt().toLowerCase().contains(sucher)) {
+                    if (eintrag.getOrt().toLowerCase().contains(sucher)) {
                         return true;
                     } else {
                         return false;
@@ -97,28 +98,28 @@ public class Controller {
 
         ChangeListener guterPers = (ChangeListener<String>) ((observable, oldVal, newVal) -> {
             if(box.getValue().equals("Ungefiltert")){
-                filtered.setPredicate(bahnunternehmen->{
+                filtered.setPredicate(eintrag->{
                     return true;
                 });
             }else if(box.getValue().equals("Güterverkehr")){
-                filtered.setPredicate(bahnunternehmen->{
-                    if(bahnunternehmen.getGueterverkehr().equals("Ja")){
+                filtered.setPredicate(eintrag->{
+                    if(eintrag.getGueterverkehr().equals("Ja")){
                         return true;
                     }else {
                         return false;
                     }
                 });
             }else if(box.getValue().equals("Personenverkehr")){
-                filtered.setPredicate(bahnunternehmen->{
-                    if(bahnunternehmen.getPersonenverkehr().equals("Ja")){
+                filtered.setPredicate(eintrag->{
+                    if(eintrag.getPersonenverkehr().equals("Ja")){
                         return true;
                     }else{
                         return false;
                     }
                 });
             }else if(box.getValue().equals("Güter- und Personenverkehr")){
-                filtered.setPredicate(bahnunternehmen->{
-                    if(bahnunternehmen.getGueterverkehr().equals("Ja")&& bahnunternehmen.getPersonenverkehr().equals("Ja")){
+                filtered.setPredicate(eintrag->{
+                    if(eintrag.getGueterverkehr().equals("Ja")&& eintrag.getPersonenverkehr().equals("Ja")){
                         return true;
                     }else{
                         return false;
